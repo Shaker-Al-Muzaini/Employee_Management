@@ -1,11 +1,13 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Validator;
 
-class AdminController extends Controller
+
+class AuthAdminController extends Controller
 {
     /**
      * Create a new AuthController instance.

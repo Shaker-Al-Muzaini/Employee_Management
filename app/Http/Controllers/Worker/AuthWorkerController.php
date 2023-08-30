@@ -7,7 +7,7 @@ use App\Models\Worker;
 use Illuminate\Http\Request;
 use Validator;
 
-class WorkerController extends Controller
+class AuthWorkerController extends Controller
 {
     /**
      * Create a new AuthController instance.
@@ -55,7 +55,10 @@ class WorkerController extends Controller
         }
         $Worker = Worker::create(array_merge(
             $validator->validated(),
-            ['password' => bcrypt($request->password)]
+            [
+                'password' => bcrypt($request->password),
+                 'photo' => $request->file('photo')->store('Worker'),
+            ]
         ));
         return response()->json([
             'message' => 'Worker successfully registered',

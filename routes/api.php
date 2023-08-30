@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AuthAdminController;
 use App\Http\Controllers\Client\ClientAuthController;
-use App\Http\Controllers\Worker\WorkerController;
+use App\Http\Controllers\Worker\AuthWorkerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,36 +15,31 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::group([
-    'prefix' => 'auth/admin'
-], function ($router) {
-    Route::post('/login', [AdminController::class, 'login']);
-    Route::post('/register', [AdminController::class, 'register']);
-    Route::post('/logout', [AdminController::class, 'logout']);
-    Route::post('/refresh', [AdminController::class, 'refresh']);
-    Route::get('/user-profile', [AdminController::class, 'userProfile']);
+Route::controller(AuthAdminController::class)->prefix('auth/admin')->group(function () {
+    Route::post('/login', 'login');
+    Route::post('/register','register');
+    Route::post('/logout',  'logout');
+    Route::post('/refresh', 'refresh');
+    Route::get('/user-profile' , 'userProfile');
 });
 
 
-Route::group([
-    'prefix' => 'auth/client',
-], function ($router) {
-    Route::post('/login', [ClientAuthController::class, 'login']);
-    Route::post('/register', [ClientAuthController::class, 'register']);
-    Route::post('/logout', [ClientAuthController::class, 'logout']);
-    Route::post('/refresh', [ClientAuthController::class, 'refresh']);
-    Route::get('/user-profile', [ClientAuthController::class, 'userProfile']);
+Route::controller(ClientAuthController::class)->prefix('auth/client')->group(function () {
+    Route::post('/login', 'login');
+    Route::post('/register','register');
+    Route::post('/logout',  'logout');
+    Route::post('/refresh', 'refresh');
+    Route::get('/user-profile' , 'userProfile');
 });
 
 
-Route::group([
-    'prefix' => 'auth/worker',
-], function ($router) {
-    Route::post('/login', [WorkerController::class, 'login']);
-    Route::post('/register', [WorkerController::class, 'register']);
-    Route::post('/logout', [WorkerController::class, 'logout']);
-    Route::post('/refresh', [WorkerController::class, 'refresh']);
-    Route::get('/user-profile', [WorkerController::class, 'userProfile']);
+Route::controller(AuthWorkerController::class)->prefix('auth/worker')->group(function () {
+    Route::post('/login', 'login');
+    Route::post('/register','register');
+    Route::post('/logout',  'logout');
+    Route::post('/refresh', 'refresh');
+    Route::get('/user-profile' , 'userProfile');
 });
+
 
 
