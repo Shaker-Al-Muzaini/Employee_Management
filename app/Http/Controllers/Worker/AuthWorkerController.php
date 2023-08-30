@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Worker;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\WorkerStoreRequest;
 use App\Models\Worker;
 use App\Services\WorkerService\WorkerAuthService\WorkerLoginService;
+use App\Services\WorkerService\WorkerAuthService\WorkerRegisterService;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -32,29 +34,8 @@ class AuthWorkerController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function register(Request $request) {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|between:2,100',
-            'email' => 'required|string|email|max:100|unique:workers',
-            'password' => 'required|string|min:6',
-            'phone' => 'required|string|max:20',
-            'photo' => 'required|image',
-            'location' => 'required|string',
-        ]);
-        if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
-        }
-        $Worker = Worker::create(array_merge(
-            $validator->validated(),
-            [
-                'password' => bcrypt($request->password),
-                 'photo' => $request->file('photo')->store('Worker'),
-            ]
-        ));
-        return response()->json([
-            'message' => 'Worker successfully registered',
-            'Worker' => $Worker
-        ], 201);
+    public function register(WorkerStoreRequest $request) {
+        return   (new WorkerRegisterService())->register($request);
     }
 
     /**

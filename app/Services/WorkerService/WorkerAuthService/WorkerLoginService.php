@@ -50,7 +50,9 @@ class WorkerLoginService
     {
         $data =  $this->validation($request);
         $token = $this->isValidData($data);
-        if ($this->getStatus($request->email) == 0) {
+        if ($this->isVerified($request->email) == null) {
+            return response()->json(["message" => "your account is not verified"], 422);
+        } elseif ($this->getStatus($request->email) == 0) {
             return response()->json(["message" => "your account is pending"], 422);
         }
         return $this->createNewToken($token);
