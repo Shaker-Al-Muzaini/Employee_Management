@@ -40,6 +40,10 @@ Route::controller(AuthWorkerController::class)->prefix('auth/worker')->group(fun
     Route::post('/refresh', 'refresh');
     Route::get('/user-profile' , 'userProfile');
 });
-
+Route::get('/unauthorized', function () {
+    return response()->json([
+        "message" => "Unauthorized"
+    ], 401);
+})->name('login');
 
 
