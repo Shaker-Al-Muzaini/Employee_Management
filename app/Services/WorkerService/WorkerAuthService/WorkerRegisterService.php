@@ -9,13 +9,16 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
+
 class WorkerRegisterService
 {
     protected $model;
+
     function __construct()
     {
         $this->model = new Worker;
     }
+
     function validation($request)
     {
         $validator = Validator::make($request->all(), $request->rules());
@@ -27,7 +30,7 @@ class WorkerRegisterService
 
     function store($data, $request)
     {
-        $worker =  $this->model->create(array_merge(
+        $worker = $this->model->create(array_merge(
             $data->validated(),
             [
                 'password' => bcrypt($request->password),
@@ -48,15 +51,17 @@ class WorkerRegisterService
 
     function sendEmail($worker)
     {
-        Mail::to($worker->email)->send(new VerificationEmail($worker));
+        Mail::to('sshakiralmazini@gmail.com')->send(new VerificationEmail($worker));
     }
+
     function register($request)
     {
         try {
             DB::beginTransaction();
-            $data =  $this->validation($request);
+            $data = $this->validation($request);
             $email = $this->store($data, $request);
             $worker = $this->generateToken($email);
+             $this->sendEmail($worker);
             DB::commit();
             return response()->json([
                 "message" => "account has been created please check your email"
