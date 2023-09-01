@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AuthAdminController;
 use App\Http\Controllers\Client\ClientAuthController;
 use App\Http\Controllers\Worker\AuthWorkerController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,15 @@ Route::controller(AuthWorkerController::class)->prefix('auth/worker')->group(fun
     Route::post('/refresh', 'refresh');
     Route::get('/user-profile' , 'userProfile');
 });
+
+Route::controller(PostController::class)->prefix('worker/post')->group(function () {
+    Route::post('/add', 'store')->middleware('auth:worker');
+
+});
+
+
+
+
 Route::get('/unauthorized', function () {
     return response()->json([
         "message" => "Unauthorized"

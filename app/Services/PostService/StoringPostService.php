@@ -60,7 +60,7 @@ class StoringPostService
             $this->sendAdminNotification($post);
             DB::commit();
             return response()->json([
-                "message" => "post has been created successfuly ,your price after discount is {$post->price}"
+                "message" => "post has been created success ,your price after discount is {$post->price}"
             ]);
         } catch (Exception $e) {
             DB::rollBack();
