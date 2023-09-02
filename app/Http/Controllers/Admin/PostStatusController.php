@@ -18,6 +18,7 @@ class PostStatusController extends Controller
             'status' => $request->status,
             "rejected_reason" => $request->rejected_reason
         ]);
+
         Notification::send($post->worker, new AdminPost($post->worker, $post));
         return response()->json([
             "message" => "post status has been changes"

@@ -11,7 +11,7 @@ class AdminNotificationController extends Controller
 {
     function index()
     {
-        $admin = Admin::find(2);
+        $admin = Admin::find(auth()->id());
         return response()->json([
             "notifications" => $admin->notifications
         ]);
@@ -19,7 +19,7 @@ class AdminNotificationController extends Controller
 
     function unread()
     {
-        $admin = Admin::find(2);
+        $admin = Admin::find(auth()->id());
         return response()->json([
             "notifications" => $admin->unreadNotifications
         ]);
@@ -27,7 +27,7 @@ class AdminNotificationController extends Controller
 
     function markReadAll()
     {
-        $admin = Admin::find(2);
+        $admin = Admin::find(auth()->id());
         foreach ($admin->unreadNotifications as $notification) {
             $notification->markAsRead();
         }
@@ -38,7 +38,7 @@ class AdminNotificationController extends Controller
 
     function deleteAll()
     {
-        $admin = Admin::find(2);
+        $admin = Admin::find(auth()->id());
         $admin->notifications()->delete();
         return response()->json([
             "message" => "deleted"

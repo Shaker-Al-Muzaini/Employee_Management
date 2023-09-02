@@ -5,10 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method static find(mixed $post_id)
+ */
 class Post extends Model
 {
     use HasFactory;
-    protected $guarded = [
+    protected $guarded = [];
 
-    ];
+    public  function worker (){
+        return $this->belongsTo(Worker::class);
+    }
+
 }

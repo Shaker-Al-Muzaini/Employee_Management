@@ -27,14 +27,23 @@ class PostController extends Controller
             "posts" => $posts
         ]);
     }
+    public function show($id)
+
+    {
+        $post = Post::where('id',$id)->get();
+        return response()->json([
+            "post" => $post
+        ]);
+    }
 
     public function approved(Request $request)
     {
-        $posts = QueryBuilder::for(Post::class)
-            ->allowedFilters((new PostFilter)->filter())
-            ->with('worker:id,name')
-            ->where('status', 'approved')
-            ->get(['id', 'content', 'price', 'worker_id']);
+//        $posts = QueryBuilder::for(Post::class)
+//            ->allowedFilters((new PostFilter)->filter())
+//            ->with('worker:id,name')
+//            ->where('status', 'approved')
+//            ->get(['id', 'content', 'price', 'worker_id']);
+        $posts=Post::where('status','approved')->get();
         return response()->json([
             "posts" => $posts
         ]);
