@@ -57,7 +57,7 @@ class StoringPostService
             if ($request->hasFile('photos')) {
                 $postPhotos = $this->storePostPhotos($request, $post->id);
             }
-//            $this->sendAdminNotification($post);
+            $this->sendAdminNotification($post);
             DB::commit();
             return response()->json([
                 "message" => "post has been created success ,your price after discount is {$post->price}"

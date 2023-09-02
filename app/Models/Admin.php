@@ -5,6 +5,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+/**
+ * @method static get()
+ */
 class Admin extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
