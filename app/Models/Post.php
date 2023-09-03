@@ -16,5 +16,8 @@ class Post extends Model
     public  function worker (){
         return $this->belongsTo(Worker::class);
     }
+    public  function reviews (){
+        return $this->hasMany(WorkerReview::class);
+    }
 
 }

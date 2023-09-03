@@ -38,12 +38,11 @@ class PostController extends Controller
 
     public function approved(Request $request)
     {
-//        $posts = QueryBuilder::for(Post::class)
-//            ->allowedFilters((new PostFilter)->filter())
-//            ->with('worker:id,name')
-//            ->where('status', 'approved')
-//            ->get(['id', 'content', 'price', 'worker_id']);
-        $posts=Post::where('status','approved')->get();
+        $posts = QueryBuilder::for(Post::class)
+            ->allowedFilters((new PostFilter)->filter())
+            ->with('worker:id,name')
+            ->where('status', 'approved')
+            ->get(['id', 'content', 'price', 'worker_id']);
         return response()->json([
             "posts" => $posts
         ]);
