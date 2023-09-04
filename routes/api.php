@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminNotificationController;
 use App\Http\Controllers\Admin\PostStatusController;
 use App\Http\Controllers\Client\ClientAuthController;
 use App\Http\Controllers\Client\ClientOrderController;
+use App\Http\Controllers\Exports\FileController;
 use App\Http\Controllers\Worker\AuthWorkerController;
 use App\Http\Controllers\Worker\WorkerReviewController;
 use App\Http\Controllers\Worker\WorkerProfileController;
@@ -89,7 +90,7 @@ Route::prefix('client')->group(function () {
         Route::get('/approved', 'approvedOrders')->middleware('auth:client');
     });
 });
-Route::prefix('worker')->middleware('auth:worker')->group(function () {
+Route::prefix('worker')->group(function () {
 
     Route::get('export', [FileController::class, 'export']);
     Route::post('import', [FileController::class, 'import']);

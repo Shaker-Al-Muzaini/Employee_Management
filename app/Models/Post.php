@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static find(mixed $post_id)
+ * @method static where(string $string)
  */
 class Post extends Model
 {
