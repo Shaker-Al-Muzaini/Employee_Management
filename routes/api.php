@@ -9,6 +9,7 @@ use App\Http\Controllers\Worker\AuthWorkerController;
 use App\Http\Controllers\Worker\WorkerReviewController;
 use App\Http\Controllers\Worker\WorkerProfileController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\Payment\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -105,6 +106,12 @@ Route::prefix('worker')->middleware('auth:worker')->group(function () {
 Route::post('client/review', [WorkerReviewController::class, 'store'])->middleware('auth:client');
 Route::get('client/Post/approved', [PostController::class, 'approved']);
 
+Route::prefix('client')->group(function () {
+
+    Route::controller(PaymentController::class)->group(function () {
+        Route::get('/pay', 'pay');
+    });
+});
 
 Route::get('/unauthorized', function () {
     return response()->json([
